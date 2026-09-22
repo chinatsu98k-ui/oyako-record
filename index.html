@@ -6,25 +6,38 @@
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-status-bar-style" content="default">
 <meta name="apple-mobile-web-app-title" content="おやこ記録">
-<link rel="apple-touch-icon" sizes="180x180" href="./apple-touch-icon.png?v=2">
 <meta name="mobile-web-app-capable" content="yes">
-<meta name="theme-color" content="#f6f8fb">
-
-<title>おやこ記録｜Ver.4</title>
+<meta name="theme-color" content="#fffaf5">
+<link rel="apple-touch-icon" sizes="180x180" href="./apple-touch-icon.png?v=3">
+<title>おやこ記録｜Ver.5.1</title>
 
 <style>
 :root{
-  --bg:#f6f8fb;
-  --card:#ffffff;
-  --text:#243247;
-  --muted:#718096;
-  --line:#e5eaf0;
-  --blue:#4d82b6;
-  --blueDark:#3476ad;
-  --blue2:#edf5fc;
-  --green:#edf7f0;
-  --yellow:#fff7df;
-  --purple:#f3effc;
+  --bg:#fffaf5;
+  --card:#fffdfa;
+  --text:#4d3d39;
+  --muted:#8b7872;
+  --line:#eadfd9;
+
+  --blue:#eaf6ff;
+  --blue-line:#cfe6f5;
+  --blue-deep:#5f9dc8;
+
+  --mint:#ecf9f2;
+  --mint-line:#cee9da;
+  --mint-deep:#5c9c78;
+
+  --lav:#f3eefc;
+  --lav-line:#dfd4f1;
+  --lav-deep:#8469b2;
+
+  --peach:#fff1e4;
+  --peach-line:#f2dcc7;
+  --peach-deep:#d58b59;
+
+  --pink:#fff0f0;
+  --pink-deep:#d97c80;
+  --shadow:0 9px 26px rgba(101,75,66,.08);
 }
 
 *{
@@ -34,14 +47,25 @@
 html,body{
   margin:0;
   padding:0;
-  background:var(--bg);
-  color:var(--text);
   font-family:
     -apple-system,
     BlinkMacSystemFont,
     "Hiragino Sans",
     "Yu Gothic",
     sans-serif;
+  color:var(--text);
+  background:
+    radial-gradient(
+      circle at top left,
+      rgba(255,218,203,.38),
+      transparent 30%
+    ),
+    radial-gradient(
+      circle at top right,
+      rgba(209,236,249,.42),
+      transparent 30%
+    ),
+    var(--bg);
 }
 
 body{
@@ -59,9 +83,9 @@ button{
 }
 
 .app{
-  max-width:740px;
+  max-width:760px;
   margin:0 auto;
-  padding:14px 14px 110px;
+  padding:14px 14px 116px;
 }
 
 .view{
@@ -72,99 +96,362 @@ button{
   display:block;
 }
 
-/* ホーム上部
-   Ver.4では押せそうなカードにしない */
-.homeHeader{
-  padding:10px 4px 18px;
-  border-bottom:1px solid var(--line);
-  margin-bottom:14px;
-}
-
-.brand{
-  font-size:13px;
-  font-weight:800;
-  color:var(--blue);
-}
-
-h1{
-  font-size:26px;
-  line-height:1.3;
-  margin:6px 0 7px;
-}
-
-.sub{
-  font-size:14px;
-  color:var(--muted);
-  line-height:1.65;
-}
-
-.hero{
-  background:linear-gradient(180deg,#ffffff,#f4f9fd);
-  border:1px solid var(--line);
-  border-radius:24px;
-  padding:19px 17px;
-}
-
-.homegrid{
-  display:grid;
+.topBrand{
+  display:flex;
+  align-items:center;
   gap:12px;
-  margin-top:14px;
+  padding:10px 4px 12px;
 }
 
-.homecard{
-  width:100%;
-  text-align:left;
+.logoImg{
+  width:56px;
+  height:56px;
+  border-radius:18px;
+  object-fit:cover;
+  box-shadow:0 5px 14px rgba(96,70,60,.12);
+}
+
+.brandText{
+  flex:1;
+  min-width:0;
+}
+
+.brandTitle{
+  font-size:24px;
+  font-weight:900;
+  letter-spacing:.02em;
+}
+
+.brandSub{
+  font-size:12.5px;
+  color:var(--muted);
+  margin-top:3px;
+  line-height:1.45;
+}
+
+.childBar{
+  margin-top:6px;
+  background:rgba(255,255,255,.77);
+  border:1px solid var(--line);
+  border-radius:22px;
+  padding:11px;
+  box-shadow:0 5px 15px rgba(97,72,64,.045);
+}
+
+.childBarTop{
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  gap:10px;
+  margin-bottom:9px;
+}
+
+.childBarLabel{
+  font-size:12px;
+  color:var(--muted);
+  font-weight:800;
+}
+
+.currentChildLabel{
+  font-size:12px;
+  color:#6c8ea3;
+  font-weight:850;
+}
+
+.childChips{
+  display:flex;
+  gap:8px;
+  overflow-x:auto;
+  padding-bottom:1px;
+}
+
+.childChip{
   border:1px solid var(--line);
   background:#fff;
   color:var(--text);
-  border-radius:20px;
-  padding:17px;
-  box-shadow:0 5px 18px rgba(38,58,84,.05);
-}
-
-.homecard .icon{
-  display:block;
-  font-size:28px;
-  margin-bottom:7px;
-}
-
-.homecard .ctitle{
-  font-size:18px;
+  border-radius:999px;
+  padding:8px 12px;
+  white-space:nowrap;
+  display:flex;
+  align-items:center;
+  gap:6px;
   font-weight:850;
-  margin-bottom:4px;
+  font-size:13px;
 }
 
-.homecard .cdesc{
+.childChip.active{
+  background:#eef7fd;
+  border-color:#bcdcf0;
+  color:#4f7d9c;
+  box-shadow:0 3px 9px rgba(84,130,160,.09);
+}
+
+.childChip.add{
+  background:#fff8f4;
+  color:#a36f63;
+}
+
+.avatarDot{
+  width:24px;
+  height:24px;
+  border-radius:50%;
+  display:grid;
+  place-items:center;
+  font-size:15px;
+  background:#f3f3f3;
+  border:1px solid rgba(0,0,0,.04);
+}
+
+.hero{
+  margin-top:12px;
+  border:1px solid var(--line);
+  border-radius:27px;
+  padding:20px 18px;
+  background:
+    linear-gradient(
+      135deg,
+      #fff7f1 0%,
+      #f2f9fe 50%,
+      #f0faf4 100%
+    );
+  box-shadow:var(--shadow);
+  position:relative;
+  overflow:hidden;
+}
+
+.hero:after{
+  content:"";
+  position:absolute;
+  right:-28px;
+  top:-34px;
+  width:120px;
+  height:120px;
+  border-radius:50%;
+  background:rgba(255,214,216,.28);
+}
+
+.heroKicker{
+  font-size:12px;
+  color:#b2726c;
+  font-weight:900;
+  letter-spacing:.04em;
+}
+
+.hero h1{
+  font-size:24px;
+  line-height:1.35;
+  margin:5px 0 7px;
+}
+
+.hero p{
+  margin:0;
+  font-size:13.5px;
+  line-height:1.65;
+  color:var(--muted);
+  max-width:540px;
+}
+
+.heroMini{
+  margin-top:14px;
+  display:flex;
+  align-items:center;
+  gap:10px;
+  background:rgba(255,255,255,.65);
+  border-radius:18px;
+  padding:10px 12px;
+  width:max-content;
+  max-width:100%;
+}
+
+.heroFace{
+  width:42px;
+  height:42px;
+  border-radius:50%;
+  display:grid;
+  place-items:center;
+  font-size:26px;
+  background:#fff;
+  border:1px solid rgba(0,0,0,.04);
+}
+
+.heroMini strong{
   font-size:13px;
+}
+
+.heroMini span{
+  display:block;
+  font-size:11.5px;
+  color:var(--muted);
+  margin-top:2px;
+}
+
+.homeGrid{
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:12px;
+  margin-top:13px;
+}
+
+.homeCard{
+  border-radius:24px;
+  padding:16px;
+  border:1px solid var(--line);
+  text-align:left;
+  min-height:188px;
+  position:relative;
+  overflow:hidden;
+  color:var(--text);
+  box-shadow:0 7px 19px rgba(101,76,66,.055);
+}
+
+.homeCard.record{
+  background:linear-gradient(145deg,#f1f9ff,#e7f4fd);
+  border-color:var(--blue-line);
+}
+
+.homeCard.share{
+  background:linear-gradient(145deg,#f2fbf6,#e7f7ef);
+  border-color:var(--mint-line);
+}
+
+.homeCard.consult{
+  background:linear-gradient(145deg,#f8f4fc,#eee8f9);
+  border-color:var(--lav-line);
+}
+
+.homeCard.history{
+  background:linear-gradient(145deg,#fff8ef,#fdf0df);
+  border-color:var(--peach-line);
+}
+
+.homeIcon{
+  width:52px;
+  height:52px;
+  border-radius:17px;
+  background:rgba(255,255,255,.74);
+  display:grid;
+  place-items:center;
+  font-size:27px;
+  box-shadow:0 4px 12px rgba(90,70,60,.05);
+}
+
+.homeTitle{
+  font-size:18px;
+  font-weight:900;
+  margin-top:10px;
+}
+
+.homeDesc{
+  font-size:12px;
+  color:var(--muted);
   line-height:1.55;
+  margin-top:5px;
+  padding-right:4px;
+}
+
+.homeChar{
+  position:absolute;
+  right:10px;
+  bottom:8px;
+  width:48px;
+  height:48px;
+  border-radius:50%;
+  display:grid;
+  place-items:center;
+  font-size:28px;
+  background:rgba(255,255,255,.64);
+}
+
+.homeCard:active{
+  transform:scale(.992);
+}
+
+.notice{
+  margin-top:13px;
+  border-radius:17px;
+  padding:12px 13px;
+  background:#fff7e8;
+  border:1px solid #f1e0b7;
+  font-size:12.5px;
+  line-height:1.6;
+  color:#786652;
+}
+
+.pageTitle{
+  display:flex;
+  align-items:center;
+  gap:10px;
+  margin:13px 0 2px;
+}
+
+.pageIcon{
+  width:46px;
+  height:46px;
+  border-radius:15px;
+  display:grid;
+  place-items:center;
+  font-size:25px;
+}
+
+.pageIcon.blue{
+  background:var(--blue);
+}
+
+.pageIcon.mint{
+  background:var(--mint);
+}
+
+.pageIcon.lav{
+  background:var(--lav);
+}
+
+.pageIcon.peach{
+  background:var(--peach);
+}
+
+.pageTitle h2{
+  margin:0;
+  font-size:22px;
+}
+
+.pageTitle p{
+  margin:2px 0 0;
+  font-size:12px;
   color:var(--muted);
 }
 
 .card{
   background:var(--card);
   border:1px solid var(--line);
-  border-radius:20px;
-  padding:16px;
-  margin-top:13px;
+  border-radius:21px;
+  padding:15px;
+  margin-top:12px;
+  box-shadow:0 5px 15px rgba(101,76,66,.04);
 }
 
 .title{
-  font-size:18px;
-  font-weight:850;
+  font-size:17px;
+  font-weight:900;
   margin-bottom:7px;
 }
 
 .hint{
-  font-size:12.5px;
+  font-size:12px;
   color:var(--muted);
   line-height:1.55;
-  margin-bottom:10px;
+  margin-bottom:9px;
 }
 
 .label{
   font-size:12px;
   color:var(--muted);
   margin:0 0 5px 2px;
+}
+
+.grid2{
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:9px;
 }
 
 input[type="date"],
@@ -176,25 +463,19 @@ textarea{
   background:#fff;
   color:var(--text);
   border-radius:14px;
-  padding:13px 14px;
+  padding:12px 13px;
   font-size:16px;
 }
 
 textarea{
-  min-height:90px;
+  min-height:88px;
   resize:vertical;
-}
-
-.grid2{
-  display:grid;
-  grid-template-columns:1fr 1fr;
-  gap:10px;
 }
 
 .chips{
   display:flex;
   flex-wrap:wrap;
-  gap:8px;
+  gap:7px;
 }
 
 .chip input,
@@ -204,18 +485,18 @@ textarea{
 
 .chip span{
   display:block;
-  padding:9px 12px;
+  padding:8px 11px;
   border:1px solid var(--line);
   border-radius:999px;
   background:#fff;
-  font-size:14px;
-  font-weight:750;
+  font-size:13px;
+  font-weight:800;
 }
 
 .chip input:checked + span{
-  background:var(--blue2);
-  border-color:#90b8dc;
-  color:#315f8b;
+  background:#edf7fd;
+  border-color:#a9cde3;
+  color:#517b99;
 }
 
 .segment{
@@ -231,69 +512,70 @@ textarea{
 .segment span{
   display:block;
   text-align:center;
-  padding:12px 8px;
+  padding:11px 8px;
   border:1px solid var(--line);
   border-radius:14px;
   background:#fff;
-  font-size:14px;
-  font-weight:850;
+  font-size:13px;
+  font-weight:900;
 }
 
 .segment input:checked + span{
-  background:var(--green);
-  border-color:#abd2b7;
-  color:#335f43;
+  background:#edf9f3;
+  border-color:#b6dbc3;
+  color:#4d7a5d;
 }
 
 .btn{
   width:100%;
   border:0;
   border-radius:16px;
-  padding:15px 16px;
-  font-size:16px;
-  font-weight:850;
+  padding:14px 15px;
+  font-size:15px;
+  font-weight:900;
   margin-top:10px;
 }
 
 .primary{
-  background:var(--blueDark);
+  background:linear-gradient(135deg,#6ea5ca,#8ab6d3);
+  color:#fff;
+}
+
+.mintBtn{
+  background:linear-gradient(135deg,#75b494,#91c5a9);
+  color:#fff;
+}
+
+.purple{
+  background:linear-gradient(135deg,#937cc0,#ab99cf);
   color:#fff;
 }
 
 .secondary{
-  background:#eaf2f9;
-  color:#315d84;
+  background:#eef5fa;
+  color:#557992;
 }
 
-.purple{
-  background:#ece6fb;
-  color:#5d4a8b;
+.soft{
+  background:#f6f2ef;
+  color:#77665f;
 }
 
 .danger{
-  background:#f9eaee;
-  color:#944356;
-}
-
-.notice{
-  background:var(--yellow);
-  border:1px solid #f1dfaa;
-  border-radius:15px;
-  padding:12px 13px;
-  font-size:13px;
-  line-height:1.55;
-  margin-top:12px;
+  background:#fff0f0;
+  color:#a45b5e;
 }
 
 .savedInfo{
   display:none;
-  background:var(--green);
-  border:1px solid #cfe4d5;
+  background:#eff9f2;
+  border:1px solid #d0e7d7;
   border-radius:15px;
-  padding:12px 13px;
-  font-size:13px;
+  padding:11px 12px;
+  font-size:12.5px;
   line-height:1.55;
-  margin-top:12px;
+  margin-top:10px;
+  color:#567260;
 }
 
 .savedInfo.show{
@@ -301,67 +583,43 @@ textarea{
 }
 
 .savedbar{
-  min-height:20px;
+  font-size:12.5px;
+  color:#4d7e5d;
   text-align:center;
-  margin-top:8px;
-  font-size:13px;
-  font-weight:800;
-  color:#3c7750;
+  min-height:20px;
+  margin-top:7px;
+  font-weight:850;
 }
 
 .summary{
   display:none;
   white-space:pre-wrap;
-  background:#fbfdff;
-  border:1px dashed #b7c5d2;
+  background:#fff;
+  border:1px dashed #c8bdb7;
   border-radius:16px;
-  padding:14px;
-  margin-top:12px;
-  font-size:14px;
+  padding:13px;
+  margin-top:11px;
   line-height:1.7;
-}
-
-.shareState{
-  display:flex;
-  align-items:center;
-  gap:8px;
-  margin-top:10px;
-  font-size:12px;
-  color:var(--muted);
-}
-
-.dot{
-  width:8px;
-  height:8px;
-  border-radius:50%;
-  background:#cbd5df;
-}
-
-.shareState.saved{
-  color:#4d7858;
-}
-
-.shareState.saved .dot{
-  background:#73ad83;
+  font-size:13.5px;
 }
 
 .toggleRow{
   display:flex;
-  justify-content:space-between;
   align-items:center;
-  gap:10px;
-  padding:9px 0;
+  justify-content:space-between;
+  gap:12px;
+  padding:8px 0;
 }
 
 .toggleLabel{
-  font-size:14px;
-  font-weight:750;
+  font-size:13.5px;
+  font-weight:800;
 }
 
 .switch{
   position:relative;
-  width:52px;
-  height:30px;
+  width:50px;
+  height:29px;
   flex:0 0 auto;
 }
 
@@ -372,42 +630,43 @@ textarea{
 .slider{
   position:absolute;
   inset:0;
+  background:#ddd7d3;
   border-radius:999px;
-  background:#dce2e8;
+  transition:.2s;
 }
 
 .slider:after{
   content:"";
   position:absolute;
-  width:24px;
-  height:24px;
+  width:23px;
+  height:23px;
   left:3px;
   top:3px;
-  border-radius:50%;
   background:#fff;
+  border-radius:50%;
   box-shadow:0 2px 5px rgba(0,0,0,.15);
   transition:.2s;
 }
 
 .switch input:checked + .slider{
-  background:#7da7ce;
+  background:#83b49a;
 }
 
 .switch input:checked + .slider:after{
-  transform:translateX(22px);
+  transform:translateX(21px);
 }
 
 .statgrid{
   display:grid;
   grid-template-columns:repeat(2,1fr);
-  gap:9px;
+  gap:8px;
 }
 
 .stat{
-  background:#fafbfd;
+  background:#fcfaf8;
   border:1px solid var(--line);
   border-radius:15px;
-  padding:13px;
+  padding:12px;
 }
 
 .stat .n{
@@ -416,67 +675,84 @@ textarea{
 }
 
 .stat .s{
-  font-size:12px;
+  font-size:11.5px;
   color:var(--muted);
-  margin-top:3px;
+  margin-top:2px;
 }
 
 .listbox{
   white-space:pre-wrap;
-  background:#fafbfd;
+  background:#fcfaf8;
   border:1px solid var(--line);
   border-radius:15px;
-  padding:12px 13px;
-  font-size:13px;
+  padding:12px;
+  font-size:12.5px;
   line-height:1.65;
 }
 
 .historyItem{
   border-top:1px solid var(--line);
-  padding:13px 0;
+  padding:12px 0;
 }
 
 .historyItem:first-child{
   border-top:0;
 }
 
+.historyTop{
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  gap:10px;
+}
+
 .historyDate{
-  font-weight:850;
+  font-weight:900;
 }
 
 .historyMini{
-  font-size:13px;
+  font-size:12.5px;
   color:var(--muted);
   line-height:1.55;
-  margin-top:5px;
+  margin-top:4px;
+}
+
+.smallBtn{
+  border:0;
+  background:#edf6fb;
+  color:#537a95;
+  border-radius:10px;
+  padding:7px 9px;
+  font-size:11.5px;
+  font-weight:900;
 }
 
 .empty{
-  font-size:13px;
+  font-size:12.5px;
   color:var(--muted);
 }
 
 .note{
-  font-size:12px;
+  font-size:11.5px;
   line-height:1.6;
   color:var(--muted);
-  margin-top:12px;
+  margin-top:11px;
 }
 
 .bottomNav{
   position:fixed;
   left:50%;
-  bottom:0;
   transform:translateX(-50%);
-  width:min(740px,100%);
+  bottom:0;
+  width:min(760px,100%);
   display:grid;
   grid-template-columns:repeat(5,1fr);
-  gap:6px;
+  gap:5px;
   padding:
-    9px
-    9px
-    calc(9px + env(safe-area-inset-bottom));
-  background:rgba(255,255,255,.95);
+    8px
+    8px
+    calc(8px + env(safe-area-inset-bottom));
+  background:rgba(255,252,249,.96);
   backdrop-filter:blur(14px);
   border-top:1px solid var(--line);
   z-index:20;
@@ -484,34 +760,33 @@ textarea{
 
 .bottomNav button{
   border:0;
-  background:#f2f4f7;
-  color:#526176;
-  border-radius:12px;
-  padding:9px 2px;
-  font-size:11px;
-  font-weight:850;
+  background:#f7f1ed;
+  color:#786a63;
+  border-radius:13px;
+  padding:8px 2px;
+  font-size:10.5px;
+  font-weight:900;
 }
 
 .bottomNav button.active{
-  background:var(--blue2);
-  color:#315f8b;
+  background:#eaf5fc;
+  color:#4d7895;
 }
 
-/* 保存完了通知 */
 .toast{
   position:fixed;
   left:50%;
   bottom:92px;
   transform:translate(-50%,18px);
   width:min(360px,calc(100% - 28px));
-  background:#284e39;
+  background:#6f9f7a;
   color:#fff;
   border-radius:16px;
-  padding:14px 16px;
-  box-shadow:0 12px 32px rgba(20,50,35,.24);
+  padding:13px 15px;
+  box-shadow:0 12px 30px rgba(57,95,65,.22);
   text-align:center;
-  font-size:15px;
-  font-weight:850;
+  font-size:14px;
+  font-weight:900;
   opacity:0;
   pointer-events:none;
   transition:.22s;
@@ -523,18 +798,130 @@ textarea{
   transform:translate(-50%,0);
 }
 
-@media(max-width:390px){
-  h1{
-    font-size:23px;
+.modal{
+  position:fixed;
+  inset:0;
+  background:rgba(52,43,39,.35);
+  display:none;
+  align-items:flex-end;
+  justify-content:center;
+  z-index:80;
+  padding:12px;
+}
+
+.modal.show{
+  display:flex;
+}
+
+.sheet{
+  width:min(680px,100%);
+  background:#fffaf7;
+  border-radius:26px 26px 20px 20px;
+  padding:18px;
+  border:1px solid var(--line);
+  box-shadow:0 18px 50px rgba(60,45,40,.18);
+}
+
+.sheetTitle{
+  font-size:19px;
+  font-weight:900;
+  margin-bottom:4px;
+}
+
+.sheetSub{
+  font-size:12px;
+  color:var(--muted);
+  margin-bottom:13px;
+}
+
+.avatarChoices{
+  display:flex;
+  gap:8px;
+  flex-wrap:wrap;
+}
+
+.avatarPick input{
+  display:none;
+}
+
+.avatarPick span{
+  width:44px;
+  height:44px;
+  border-radius:50%;
+  display:grid;
+  place-items:center;
+  background:#f8f3ef;
+  border:1px solid var(--line);
+  font-size:24px;
+}
+
+.avatarPick input:checked + span{
+  outline:3px solid #b9d9eb;
+  background:#eef7fd;
+}
+
+.colorChoices{
+  display:flex;
+  gap:9px;
+  flex-wrap:wrap;
+}
+
+.colorPick input{
+  display:none;
+}
+
+.colorSwatch{
+  width:34px;
+  height:34px;
+  border-radius:50%;
+  display:block;
+  border:2px solid #fff;
+  box-shadow:0 0 0 1px #e4d9d3;
+}
+
+.colorPick input:checked + .colorSwatch{
+  box-shadow:0 0 0 3px #9dbed0;
+}
+
+.rowBtns{
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:8px;
+}
+
+.softIconImg{
+  width:100%;
+  height:100%;
+  object-fit:cover;
+  border-radius:inherit;
+  display:block;
+}
+
+.navIconImg{
+  width:25px;
+  height:25px;
+  object-fit:cover;
+  border-radius:8px;
+  display:block;
+  margin:0 auto 2px;
+}
+
+@media(max-width:420px){
+
+  .homeCard{
+    min-height:180px;
+    padding:14px;
   }
 
-  .grid2{
+  .homeTitle{
+    font-size:17px;
+  }
+
+  .grid2,
+  .rowBtns{
     grid-template-columns:1fr;
   }
 
-  .bottomNav button{
-    font-size:10px;
-  }
 }
 </style>
 </head>
@@ -543,874 +930,1222 @@ textarea{
 
 <div class="app">
 
-<!-- ホーム -->
-<section id="view-home" class="view active">
+  <div class="topBrand">
 
-<header class="homeHeader">
-  <div class="brand">おやこ記録｜Ver.4</div>
+    <img
+      class="logoImg"
+      src="./apple-touch-icon.png?v=3"
+      alt=""
+    >
 
-  <h1>
-    記録・共有・相談を、ひとつに。
-  </h1>
+    <div class="brandText">
 
-  <div class="sub">
-    日々の様子を残して、
-    必要な時だけ学校・デイや
-    通院・面談にまとめます。
-  </div>
-</header>
+      <div class="brandTitle">
+        おやこ記録🌱
+      </div>
 
-<div class="homegrid">
+      <div class="brandSub">
+        毎日の小さな「いつも」を、
+        必要な時に振り返れる記録へ。
+      </div>
 
-<button
-  class="homecard"
-  onclick="showView('record')"
->
-  <span class="icon">✍️</span>
+    </div>
 
-  <div class="ctitle">
-    今日の記録
   </div>
 
-  <div class="cdesc">
-    睡眠・食事・気分・学校やデイの様子を、
-    必要なところだけ残します。
-  </div>
-</button>
 
-<button
-  class="homecard"
-  onclick="showView('share')"
->
-  <span class="icon">📤</span>
+  <div class="childBar">
 
-  <div class="ctitle">
-    学校・デイ共有
-  </div>
+    <div class="childBarTop">
 
-  <div class="cdesc">
-    共有用メモは先に保存。
-    必要になった時だけ文章を作ってコピーします。
-  </div>
-</button>
+      <div class="childBarLabel">
+        記録する子ども
+      </div>
 
-<button
-  class="homecard"
-  onclick="showView('consult')"
->
-  <span class="icon">🩺</span>
+      <div
+        id="currentChildLabel"
+        class="currentChildLabel"
+      ></div>
 
-  <div class="ctitle">
-    通院・相談まとめ
+    </div>
+
+    <div
+      id="childChips"
+      class="childChips"
+    ></div>
+
   </div>
 
-  <div class="cdesc">
-    最近の記録を振り返って、
-    相談したいことを整理します。
-  </div>
-</button>
 
-<button
-  class="homecard"
-  onclick="showView('history')"
->
-  <span class="icon">🕘</span>
+  <!-- HOME -->
 
-  <div class="ctitle">
-    履歴を見る
-  </div>
-
-  <div class="cdesc">
-    保存した日々の記録を見返します。
-  </div>
-</button>
-
-</div>
-
-<div class="notice">
-  🔒 入力内容はこのブラウザ内に保存されます。
-  外部サーバーへ送信する仕組みは入れていません。
-</div>
-
-</section>
-
-
-<!-- 今日の記録 -->
-<section id="view-record" class="view">
-
-<div class="hero">
-  <div class="brand">今日の記録</div>
-
-  <h1>
-    気になったところだけでOK
-  </h1>
-
-  <div class="sub">
-    全部埋める必要はありません。
-  </div>
-</div>
-
-
-<div class="card">
-
-<div class="title">
-  📅 日付
-</div>
-
-<input
-  id="date"
-  type="date"
->
-
-</div>
-
-
-<div class="card">
-
-<div class="title">
-  🌙 睡眠
-</div>
-
-<div class="chips">
-
-<label class="chip">
-  <input
-    type="radio"
-    name="sleep"
-    value="いつも通り"
+  <section
+    id="view-home"
+    class="view active"
   >
-  <span>いつも通り</span>
-</label>
 
-<label class="chip">
-  <input
-    type="radio"
-    name="sleep"
-    value="早起き"
+    <div class="hero">
+
+      <div class="heroKicker">
+        おうちで完結する記録ツール
+      </div>
+
+      <h1>
+        今日のことを、やさしく残す。
+      </h1>
+
+      <p>
+        日々の記録は保護者の端末内に保存。
+        学校・デイや通院で必要になった時だけ、
+        まとめて使えます。
+      </p>
+
+      <div class="heroMini">
+
+        <div
+          id="heroFace"
+          class="heroFace"
+        >
+          🧒🏻
+        </div>
+
+        <div>
+
+          <strong id="heroChildName">
+            お子さん
+          </strong>
+
+          <span>
+            この子の記録を表示しています
+          </span>
+
+        </div>
+
+      </div>
+
+    </div>
+
+
+    <div class="homeGrid">
+
+      <button
+        class="homeCard record"
+        onclick="showView('record')"
+      >
+
+        <div class="homeIcon">
+
+          <img
+            class="softIconImg"
+            src="./icon-record.png?v=1"
+            alt=""
+          >
+
+        </div>
+
+        <div class="homeTitle">
+          今日の記録
+        </div>
+
+        <div class="homeDesc">
+          睡眠・食事・気分など、
+          気になったところだけ。
+        </div>
+
+        <div
+          id="homeChar1"
+          class="homeChar"
+        >
+          🧒🏻
+        </div>
+
+      </button>
+
+
+      <button
+        class="homeCard share"
+        onclick="showView('share')"
+      >
+
+        <div class="homeIcon">
+
+          <img
+            class="softIconImg"
+            src="./icon-share.png?v=1"
+            alt=""
+          >
+
+        </div>
+
+        <div class="homeTitle">
+          学校・デイ共有
+        </div>
+
+        <div class="homeDesc">
+          先に保存。
+          必要な時だけ共有文を作ってコピー。
+        </div>
+
+        <div class="homeChar">
+          👩🏻
+        </div>
+
+      </button>
+
+
+      <button
+        class="homeCard consult"
+        onclick="showView('consult')"
+      >
+
+        <div class="homeIcon">
+
+          <img
+            class="softIconImg"
+            src="./icon-consult.png?v=1"
+            alt=""
+          >
+
+        </div>
+
+        <div class="homeTitle">
+          通院・相談まとめ
+        </div>
+
+        <div class="homeDesc">
+          最近の記録を振り返って、
+          相談内容を整理。
+        </div>
+
+        <div class="homeChar">
+          👩🏻‍🦰
+        </div>
+
+      </button>
+
+
+      <button
+        class="homeCard history"
+        onclick="showView('history')"
+      >
+
+        <div class="homeIcon">
+
+          <img
+            class="softIconImg"
+            src="./icon-history.png?v=1"
+            alt=""
+          >
+
+        </div>
+
+        <div class="homeTitle">
+          履歴
+        </div>
+
+        <div class="homeDesc">
+          これまでの記録を、
+          その子ごとに見返す。
+        </div>
+
+        <div
+          id="homeChar4"
+          class="homeChar"
+        >
+          🧒🏻
+        </div>
+
+      </button>
+
+    </div>
+
+
+    <div class="notice">
+      🔒 記録はこのブラウザ内に保存されます。
+      学校・デイ・病院と自動連携したり、
+      入力内容を外部へ送信したりする機能はありません。
+    </div>
+
+  </section>
+
+
+  <!-- RECORD -->
+
+  <section
+    id="view-record"
+    class="view"
   >
-  <span>早起き</span>
-</label>
 
-<label class="chip">
-  <input
-    type="radio"
-    name="sleep"
-    value="夜中に起きた"
+    <div class="pageTitle">
+
+      <div class="pageIcon blue">
+
+        <img
+          class="softIconImg"
+          src="./icon-record.png?v=1"
+          alt=""
+        >
+
+      </div>
+
+      <div>
+
+        <h2>
+          今日の記録
+        </h2>
+
+        <p id="recordChildLabel"></p>
+
+      </div>
+
+    </div>
+
+
+    <div class="card">
+
+      <div class="title">
+        📅 日付
+      </div>
+
+      <input
+        id="date"
+        type="date"
+      >
+
+    </div>
+
+
+    <div class="card">
+
+      <div class="title">
+        🌙 睡眠
+      </div>
+
+      <div class="chips">
+
+        <label class="chip">
+
+          <input
+            type="radio"
+            name="sleep"
+            value="いつも通り"
+          >
+
+          <span>
+            いつも通り
+          </span>
+
+        </label>
+
+
+        <label class="chip">
+
+          <input
+            type="radio"
+            name="sleep"
+            value="早起き"
+          >
+
+          <span>
+            早起き
+          </span>
+
+        </label>
+
+
+        <label class="chip">
+
+          <input
+            type="radio"
+            name="sleep"
+            value="夜中に起きた"
+          >
+
+          <span>
+            夜中に起きた
+          </span>
+
+        </label>
+
+
+        <label class="chip">
+
+          <input
+            type="radio"
+            name="sleep"
+            value="寝つきにくい"
+          >
+
+          <span>
+            寝つきにくい
+          </span>
+
+        </label>
+
+      </div>
+
+
+      <div style="height:9px"></div>
+
+
+      <div class="grid2">
+
+        <div>
+
+          <div class="label">
+            寝た時間
+          </div>
+
+          <input
+            id="sleepStart"
+            type="time"
+          >
+
+        </div>
+
+
+        <div>
+
+          <div class="label">
+            起きた時間
+          </div>
+
+          <input
+            id="sleepEnd"
+            type="time"
+          >
+
+        </div>
+
+      </div>
+
+    </div>
+
+
+    <div class="card">
+
+      <div class="title">
+        🍚 食事
+      </div>
+
+      <div class="chips">
+
+        <label class="chip">
+
+          <input
+            type="radio"
+            name="meal"
+            value="いつも通り"
+          >
+
+          <span>
+            いつも通り
+          </span>
+
+        </label>
+
+
+        <label class="chip">
+
+          <input
+            type="radio"
+            name="meal"
+            value="よく食べた"
+          >
+
+          <span>
+            よく食べた
+          </span>
+
+        </label>
+
+
+        <label class="chip">
+
+          <input
+            type="radio"
+            name="meal"
+            value="少なめ"
+          >
+
+          <span>
+            少なめ
+          </span>
+
+        </label>
+
+
+        <label class="chip">
+
+          <input
+            type="radio"
+            name="meal"
+            value="気になることあり"
+          >
+
+          <span>
+            気になる
+          </span>
+
+        </label>
+
+      </div>
+
+
+      <div style="height:9px"></div>
+
+
+      <input
+        id="mealNote"
+        type="text"
+        placeholder="必要な時だけメモ"
+      >
+
+    </div>
+
+
+    <div class="card">
+
+      <div class="title">
+        🙂 気分・様子
+      </div>
+
+      <div class="chips">
+
+        <label class="chip">
+
+          <input
+            type="radio"
+            name="mood"
+            value="落ち着いていた"
+          >
+
+          <span>
+            落ち着いてた
+          </span>
+
+        </label>
+
+
+        <label class="chip">
+
+          <input
+            type="radio"
+            name="mood"
+            value="いつも通り"
+          >
+
+          <span>
+            いつも通り
+          </span>
+
+        </label>
+
+
+        <label class="chip">
+
+          <input
+            type="radio"
+            name="mood"
+            value="波があった"
+          >
+
+          <span>
+            波があった
+          </span>
+
+        </label>
+
+
+        <label class="chip">
+
+          <input
+            type="radio"
+            name="mood"
+            value="しんどそう"
+          >
+
+          <span>
+            しんどそう
+          </span>
+
+        </label>
+
+      </div>
+
+
+      <div style="height:9px"></div>
+
+
+      <input
+        id="moodNote"
+        type="text"
+        placeholder="必要な時だけメモ"
+      >
+
+    </div>
+
+
+    <div class="card">
+
+      <div class="title">
+        🏫 学校・デイ
+      </div>
+
+      <textarea
+        id="school"
+        placeholder="例：登校時に少し泣いた／デイでは落ち着いていた"
+      ></textarea>
+
+    </div>
+
+
+    <div class="card">
+
+      <div class="title">
+        ⭐ よかったこと
+      </div>
+
+      <textarea
+        id="good"
+        placeholder="できたこと、嬉しかったこと"
+      ></textarea>
+
+    </div>
+
+
+    <div class="card">
+
+      <div class="title">
+        💭 気になること
+      </div>
+
+      <textarea
+        id="concern"
+        placeholder="相談したいこと、いつもと違ったこと"
+      ></textarea>
+
+    </div>
+
+
+    <div class="card">
+
+      <div class="title">
+        📝 その他
+      </div>
+
+      <textarea
+        id="other"
+        placeholder="自由メモ"
+      ></textarea>
+
+    </div>
+
+
+    <button
+      class="btn primary"
+      onclick="saveRecord()"
+    >
+      今日の記録を保存
+    </button>
+
+    <div
+      id="recordSaved"
+      class="savedbar"
+    ></div>
+
+  </section>
+
+
+  <!-- SHARE -->
+
+  <section
+    id="view-share"
+    class="view"
   >
-  <span>夜中に起きた</span>
-</label>
 
-<label class="chip">
-  <input
-    type="radio"
-    name="sleep"
-    value="寝つきにくい"
+    <div class="pageTitle">
+
+      <div class="pageIcon mint">
+
+        <img
+          class="softIconImg"
+          src="./icon-share.png?v=1"
+          alt=""
+        >
+
+      </div>
+
+      <div>
+
+        <h2>
+          学校・デイ共有
+        </h2>
+
+        <p id="shareChildLabel"></p>
+
+      </div>
+
+    </div>
+
+
+    <div class="card">
+
+      <div class="title">
+        📍 保存先
+      </div>
+
+      <div class="segment">
+
+        <label>
+
+          <input
+            type="radio"
+            name="target"
+            value="学校"
+            checked
+          >
+
+          <span>
+            🏫 学校用
+          </span>
+
+        </label>
+
+
+        <label>
+
+          <input
+            type="radio"
+            name="target"
+            value="デイ"
+          >
+
+          <span>
+            🌱 デイ用
+          </span>
+
+        </label>
+
+      </div>
+
+
+      <div
+        class="hint"
+        style="margin-top:9px"
+      >
+        ここで選ぶのは「文章の保存先」です。
+        学校・デイとアプリが直接つながることはありません。
+      </div>
+
+    </div>
+
+
+    <div class="card">
+
+      <div class="title">
+        🏠 家での様子・対応
+      </div>
+
+      <textarea
+        id="homeResponse"
+        placeholder="例：朝は少し不安そうでした／短く声をかけると動きやすかったです"
+      ></textarea>
+
+    </div>
+
+
+    <div class="card">
+
+      <div class="title">
+        ❓ 聞きたいこと
+      </div>
+
+      <textarea
+        id="question"
+        placeholder="例：今日は活動中の様子どうでしたか？"
+      ></textarea>
+
+    </div>
+
+
+    <div class="card">
+
+      <div class="title">
+        ⚙️ 文章の設定
+      </div>
+
+      <div class="toggleRow">
+
+        <div class="toggleLabel">
+          短めにまとめる
+        </div>
+
+        <label class="switch">
+
+          <input
+            id="shortMode"
+            type="checkbox"
+            checked
+          >
+
+          <span class="slider"></span>
+
+        </label>
+
+      </div>
+
+
+      <div class="toggleRow">
+
+        <div class="toggleLabel">
+          「返信不要」を入れる
+        </div>
+
+        <label class="switch">
+
+          <input
+            id="noReply"
+            type="checkbox"
+          >
+
+          <span class="slider"></span>
+
+        </label>
+
+      </div>
+
+    </div>
+
+
+    <button
+      class="btn mintBtn"
+      onclick="saveShareMemo()"
+    >
+      入力内容を保存
+    </button>
+
+
+    <div
+      id="shareSavedInfo"
+      class="savedInfo"
+    ></div>
+
+
+    <div class="card">
+
+      <div class="title">
+        📄 必要な時だけ共有文を作る
+      </div>
+
+      <div class="hint">
+        保存済みの内容から文章を作ります。
+        作成後はコピーして、
+        保護者自身でLINE・連絡帳・メール等へ
+        貼り付けて使います。
+      </div>
+
+      <button
+        class="btn secondary"
+        onclick="makeMessage()"
+      >
+        共有文を作る
+      </button>
+
+      <div
+        id="summary"
+        class="summary"
+      ></div>
+
+      <button
+        class="btn secondary"
+        onclick="copyMessage()"
+      >
+        共有文をコピー
+      </button>
+
+    </div>
+
+
+    <div
+      id="shareSaved"
+      class="savedbar"
+    ></div>
+
+  </section>
+
+
+  <!-- CONSULT -->
+
+  <section
+    id="view-consult"
+    class="view"
   >
-  <span>寝つきにくい</span>
-</label>
 
-</div>
+    <div class="pageTitle">
 
-<div style="height:10px"></div>
+      <div class="pageIcon lav">
 
-<div class="grid2">
+        <img
+          class="softIconImg"
+          src="./icon-consult.png?v=1"
+          alt=""
+        >
 
-<div>
-  <div class="label">
-    寝た時間
-  </div>
+      </div>
 
-  <input
-    id="sleepStart"
-    type="time"
+      <div>
+
+        <h2>
+          通院・相談まとめ
+        </h2>
+
+        <p id="consultChildLabel"></p>
+
+      </div>
+
+    </div>
+
+
+    <div class="card">
+
+      <div class="title">
+        📆 集計期間
+      </div>
+
+      <div class="segment three">
+
+        <label>
+
+          <input
+            type="radio"
+            name="period"
+            value="7"
+            checked
+          >
+
+          <span>
+            7日
+          </span>
+
+        </label>
+
+
+        <label>
+
+          <input
+            type="radio"
+            name="period"
+            value="14"
+          >
+
+          <span>
+            14日
+          </span>
+
+        </label>
+
+
+        <label>
+
+          <input
+            type="radio"
+            name="period"
+            value="all"
+          >
+
+          <span>
+            全部
+          </span>
+
+        </label>
+
+      </div>
+
+
+      <button
+        class="btn purple"
+        onclick="buildConsult()"
+      >
+        記録をまとめる
+      </button>
+
+    </div>
+
+
+    <div class="card">
+
+      <div class="title">
+        📊 最近の傾向
+      </div>
+
+      <div
+        id="stats"
+        class="statgrid"
+      >
+
+        <div class="stat">
+
+          <div class="n">
+            0
+          </div>
+
+          <div class="s">
+            記録日数
+          </div>
+
+        </div>
+
+
+        <div class="stat">
+
+          <div class="n">
+            0
+          </div>
+
+          <div class="s">
+            気になる記録
+          </div>
+
+        </div>
+
+
+        <div class="stat">
+
+          <div class="n">
+            0
+          </div>
+
+          <div class="s">
+            睡眠の変化
+          </div>
+
+        </div>
+
+
+        <div class="stat">
+
+          <div class="n">
+            0
+          </div>
+
+          <div class="s">
+            食事の変化
+          </div>
+
+        </div>
+
+      </div>
+
+    </div>
+
+
+    <div class="card">
+
+      <div class="title">
+        🧾 最近のメモ
+      </div>
+
+      <div
+        id="recentNotes"
+        class="listbox"
+      >
+        まだ集計していません。
+      </div>
+
+    </div>
+
+
+    <div class="card">
+
+      <div class="title">
+        💬 今回相談したいこと
+      </div>
+
+      <textarea
+        id="consultQuestion"
+        placeholder="例：最近の睡眠について相談したい"
+      ></textarea>
+
+    </div>
+
+
+    <div class="card">
+
+      <div class="title">
+        📌 伝えておきたいこと
+      </div>
+
+      <textarea
+        id="consultExtra"
+        placeholder="例：学校では○○、家では○○"
+      ></textarea>
+
+    </div>
+
+
+    <button
+      class="btn purple"
+      onclick="makeConsultSummary()"
+    >
+      相談用まとめを作る
+    </button>
+
+
+    <div
+      id="consultSummary"
+      class="summary"
+    ></div>
+
+
+    <button
+      class="btn secondary"
+      onclick="copyConsult()"
+    >
+      相談用まとめをコピー
+    </button>
+
+
+    <div
+      id="consultSaved"
+      class="savedbar"
+    ></div>
+
+
+    <div class="note">
+      ※診断や治療判断を行う機能ではありません。
+      日々の記録を整理して、
+      相談時に伝えやすくするための補助機能です。
+    </div>
+
+  </section>
+
+
+  <!-- HISTORY -->
+
+  <section
+    id="view-history"
+    class="view"
   >
-</div>
 
-<div>
-  <div class="label">
-    起きた時間
-  </div>
+    <div class="pageTitle">
 
-  <input
-    id="sleepEnd"
-    type="time"
-  >
-</div>
+      <div class="pageIcon peach">
 
-</div>
+        <img
+          class="softIconImg"
+          src="./icon-history.png?v=1"
+          alt=""
+        >
 
-</div>
+      </div>
 
+      <div>
 
-<div class="card">
+        <h2>
+          履歴
+        </h2>
 
-<div class="title">
-  🍚 食事
-</div>
+        <p id="historyChildLabel"></p>
 
-<div class="chips">
+      </div>
 
-<label class="chip">
-  <input
-    type="radio"
-    name="meal"
-    value="いつも通り"
-  >
-  <span>いつも通り</span>
-</label>
+    </div>
 
-<label class="chip">
-  <input
-    type="radio"
-    name="meal"
-    value="よく食べた"
-  >
-  <span>よく食べた</span>
-</label>
 
-<label class="chip">
-  <input
-    type="radio"
-    name="meal"
-    value="少なめ"
-  >
-  <span>少なめ</span>
-</label>
+    <div class="card">
 
-<label class="chip">
-  <input
-    type="radio"
-    name="meal"
-    value="気になることあり"
-  >
-  <span>気になる</span>
-</label>
+      <div id="history"></div>
 
-</div>
+    </div>
 
-<div style="height:10px"></div>
 
-<input
-  id="mealNote"
-  type="text"
-  placeholder="必要な時だけメモ"
->
+    <button
+      class="btn danger"
+      onclick="clearHistory()"
+    >
+      この子の履歴をすべて削除
+    </button>
 
-</div>
-
-
-<div class="card">
-
-<div class="title">
-  🙂 気分・様子
-</div>
-
-<div class="chips">
-
-<label class="chip">
-  <input
-    type="radio"
-    name="mood"
-    value="落ち着いていた"
-  >
-  <span>落ち着いてた</span>
-</label>
-
-<label class="chip">
-  <input
-    type="radio"
-    name="mood"
-    value="いつも通り"
-  >
-  <span>いつも通り</span>
-</label>
-
-<label class="chip">
-  <input
-    type="radio"
-    name="mood"
-    value="波があった"
-  >
-  <span>波があった</span>
-</label>
-
-<label class="chip">
-  <input
-    type="radio"
-    name="mood"
-    value="しんどそう"
-  >
-  <span>しんどそう</span>
-</label>
-
-</div>
-
-<div style="height:10px"></div>
-
-<input
-  id="moodNote"
-  type="text"
-  placeholder="必要な時だけメモ"
->
-
-</div>
-
-
-<div class="card">
-
-<div class="title">
-  🏫 学校・デイ
-</div>
-
-<textarea
-  id="school"
-  placeholder="例：登校時に少し泣いた／デイでは落ち着いていた"
-></textarea>
-
-</div>
-
-
-<div class="card">
-
-<div class="title">
-  ⭐ よかったこと
-</div>
-
-<textarea
-  id="good"
-  placeholder="できたこと、嬉しかったこと"
-></textarea>
-
-</div>
-
-
-<div class="card">
-
-<div class="title">
-  💭 気になること
-</div>
-
-<textarea
-  id="concern"
-  placeholder="相談したいこと、いつもと違ったこと"
-></textarea>
-
-</div>
-
-
-<div class="card">
-
-<div class="title">
-  📝 その他
-</div>
-
-<textarea
-  id="other"
-  placeholder="自由メモ"
-></textarea>
-
-</div>
-
-
-<button
-  class="btn primary"
-  onclick="saveRecord()"
->
-  今日の記録を保存
-</button>
-
-<div
-  id="recordSaved"
-  class="savedbar"
-></div>
-
-</section>
-
-
-<!-- 学校・デイ共有 -->
-<section id="view-share" class="view">
-
-<div class="hero">
-
-<div class="brand">
-  学校・デイ共有
-</div>
-
-<h1>
-  まず保存。共有は必要な時だけ。
-</h1>
-
-<div class="sub">
-  学校用・デイ用のメモを別々に保存して、
-  後から必要な時だけ共有文を作れます。
-</div>
-
-</div>
-
-
-<div class="card">
-
-<div class="title">
-  📍 保存先
-</div>
-
-<div class="segment">
-
-<label>
-  <input
-    type="radio"
-    name="target"
-    value="学校"
-    checked
-  >
-  <span>
-    🏫 学校
-  </span>
-</label>
-
-<label>
-  <input
-    type="radio"
-    name="target"
-    value="デイ"
-  >
-  <span>
-    🌱 デイ
-  </span>
-</label>
-
-</div>
-
-<div
-  id="shareState"
-  class="shareState"
->
-  <span class="dot"></span>
-
-  <span id="shareStateText">
-    学校用の保存内容はまだありません
-  </span>
-</div>
-
-</div>
-
-
-<div class="card">
-
-<div class="title">
-  🏠 家での様子・対応
-</div>
-
-<textarea
-  id="homeResponse"
-  placeholder="例：朝は少し不安そうでした／短く声をかけると動きやすかったです"
-></textarea>
-
-</div>
-
-
-<div class="card">
-
-<div class="title">
-  ❓ 聞きたいこと
-</div>
-
-<textarea
-  id="question"
-  placeholder="例：今日は活動中の様子どうでしたか？"
-></textarea>
-
-</div>
-
-
-<div class="card">
-
-<div class="title">
-  ⚙️ 共有文の設定
-</div>
-
-<div class="toggleRow">
-
-<div class="toggleLabel">
-  短めにまとめる
-</div>
-
-<label class="switch">
-
-<input
-  id="shortMode"
-  type="checkbox"
-  checked
->
-
-<span class="slider"></span>
-
-</label>
-
-</div>
-
-
-<div class="toggleRow">
-
-<div class="toggleLabel">
-  「返信不要」を入れる
-</div>
-
-<label class="switch">
-
-<input
-  id="noReply"
-  type="checkbox"
->
-
-<span class="slider"></span>
-
-</label>
-
-</div>
-
-</div>
-
-
-<button
-  class="btn primary"
-  onclick="saveShareMemo()"
->
-  入力内容を保存
-</button>
-
-
-<div
-  id="shareSavedInfo"
-  class="savedInfo"
-></div>
-
-
-<div class="card">
-
-<div class="title">
-  📄 必要な時だけ共有文を作る
-</div>
-
-<div class="hint">
-  今日の記録と、
-  保存済みの学校用／デイ用メモから文章を作ります。
-</div>
-
-<button
-  class="btn secondary"
-  onclick="makeMessage()"
->
-  共有文を作る
-</button>
-
-<div
-  id="summary"
-  class="summary"
-></div>
-
-<button
-  class="btn secondary"
-  onclick="copyMessage()"
->
-  共有文をコピー
-</button>
-
-</div>
-
-<div
-  id="shareSaved"
-  class="savedbar"
-></div>
-
-</section>
-
-
-<!-- 通院・相談 -->
-<section id="view-consult" class="view">
-
-<div class="hero">
-
-<div class="brand">
-  通院・相談まとめ
-</div>
-
-<h1>
-  最近の様子を整理
-</h1>
-
-<div class="sub">
-  通院や面談の前に、
-  最近の記録を振り返ります。
-</div>
-
-</div>
-
-
-<div class="card">
-
-<div class="title">
-  📆 集計期間
-</div>
-
-<div class="segment three">
-
-<label>
-
-<input
-  type="radio"
-  name="period"
-  value="7"
-  checked
->
-
-<span>
-  7日
-</span>
-
-</label>
-
-
-<label>
-
-<input
-  type="radio"
-  name="period"
-  value="14"
->
-
-<span>
-  14日
-</span>
-
-</label>
-
-
-<label>
-
-<input
-  type="radio"
-  name="period"
-  value="all"
->
-
-<span>
-  全部
-</span>
-
-</label>
-
-</div>
-
-
-<button
-  class="btn purple"
-  onclick="buildConsult()"
->
-  記録をまとめる
-</button>
-
-</div>
-
-
-<div class="card">
-
-<div class="title">
-  📊 最近の傾向
-</div>
-
-<div
-  id="stats"
-  class="statgrid"
->
-
-<div class="stat">
-  <div class="n">0</div>
-  <div class="s">記録日数</div>
-</div>
-
-<div class="stat">
-  <div class="n">0</div>
-  <div class="s">気になる記録</div>
-</div>
-
-<div class="stat">
-  <div class="n">0</div>
-  <div class="s">睡眠の変化</div>
-</div>
-
-<div class="stat">
-  <div class="n">0</div>
-  <div class="s">食事の変化</div>
-</div>
-
-</div>
-
-</div>
-
-
-<div class="card">
-
-<div class="title">
-  🧾 最近のメモ
-</div>
-
-<div
-  id="recentNotes"
-  class="listbox"
->
-  まだ集計していません。
-</div>
-
-</div>
-
-
-<div class="card">
-
-<div class="title">
-  💬 今回相談したいこと
-</div>
-
-<textarea
-  id="consultQuestion"
-  placeholder="例：最近の睡眠について相談したい"
-></textarea>
-
-</div>
-
-
-<div class="card">
-
-<div class="title">
-  📌 伝えておきたいこと
-</div>
-
-<textarea
-  id="consultExtra"
-  placeholder="例：学校では○○、家では○○"
-></textarea>
-
-</div>
-
-
-<button
-  class="btn primary"
-  onclick="makeConsultSummary()"
->
-  相談用まとめを作る
-</button>
-
-
-<div
-  id="consultSummary"
-  class="summary"
-></div>
-
-
-<button
-  class="btn secondary"
-  onclick="copyConsult()"
->
-  相談用まとめをコピー
-</button>
-
-
-<div
-  id="consultSaved"
-  class="savedbar"
-></div>
-
-
-<div class="note">
-  ※診断や治療判断をする機能ではありません。
-  日々の記録を整理して、
-  相談時に伝えやすくするための補助機能です。
-</div>
-
-</section>
-
-
-<!-- 履歴 -->
-<section id="view-history" class="view">
-
-<div class="hero">
-
-<div class="brand">
-  履歴
-</div>
-
-<h1>
-  最近の記録
-</h1>
-
-<div class="sub">
-  直近14件をこの端末内に保存します。
-</div>
-
-</div>
-
-
-<div class="card">
-
-<div id="history"></div>
-
-</div>
-
-
-<button
-  class="btn danger"
-  onclick="clearHistory()"
->
-  履歴をすべて削除
-</button>
-
-</section>
+  </section>
 
 </div>
 
 
 <nav class="bottomNav">
 
-<button
-  id="nav-home"
-  class="active"
-  onclick="showView('home')"
->
-  🏠<br>
-  ホーム
-</button>
+  <button
+    id="nav-home"
+    class="active"
+    onclick="showView('home')"
+  >
+    🏠<br>
+    ホーム
+  </button>
 
-<button
-  id="nav-record"
-  onclick="showView('record')"
->
-  ✍️<br>
-  記録
-</button>
 
-<button
-  id="nav-share"
-  onclick="showView('share')"
->
-  📤<br>
-  共有
-</button>
+  <button
+    id="nav-record"
+    onclick="showView('record')"
+  >
 
-<button
-  id="nav-consult"
-  onclick="showView('consult')"
->
-  🩺<br>
-  相談
-</button>
+    <img
+      class="navIconImg"
+      src="./icon-record.png?v=1"
+      alt=""
+    >
 
-<button
-  id="nav-history"
-  onclick="showView('history')"
->
-  🕘<br>
-  履歴
-</button>
+    記録
+
+  </button>
+
+
+  <button
+    id="nav-share"
+    onclick="showView('share')"
+  >
+
+    <img
+      class="navIconImg"
+      src="./icon-share.png?v=1"
+      alt=""
+    >
+
+    共有
+
+  </button>
+
+
+  <button
+    id="nav-consult"
+    onclick="showView('consult')"
+  >
+
+    <img
+      class="navIconImg"
+      src="./icon-consult.png?v=1"
+      alt=""
+    >
+
+    相談
+
+  </button>
+
+
+  <button
+    id="nav-history"
+    onclick="showView('history')"
+  >
+
+    <img
+      class="navIconImg"
+      src="./icon-history.png?v=1"
+      alt=""
+    >
+
+    履歴
+
+  </button>
 
 </nav>
 
@@ -1425,38 +2160,263 @@ textarea{
 </div>
 
 
+<!-- 子ども追加 -->
+
+<div
+  id="childModal"
+  class="modal"
+>
+
+  <div class="sheet">
+
+    <div class="sheetTitle">
+      子どもを追加
+    </div>
+
+    <div class="sheetSub">
+      名前だけで始められます。
+      あとから増やしてOK。
+    </div>
+
+
+    <div class="label">
+      名前
+    </div>
+
+    <input
+      id="newChildName"
+      type="text"
+      placeholder="例：はると"
+    >
+
+
+    <div style="height:12px"></div>
+
+
+    <div class="label">
+      アイコン
+    </div>
+
+    <div class="avatarChoices">
+
+      <label class="avatarPick">
+
+        <input
+          type="radio"
+          name="newAvatar"
+          value="🧒🏻"
+          checked
+        >
+
+        <span>
+          🧒🏻
+        </span>
+
+      </label>
+
+
+      <label class="avatarPick">
+
+        <input
+          type="radio"
+          name="newAvatar"
+          value="👦🏻"
+        >
+
+        <span>
+          👦🏻
+        </span>
+
+      </label>
+
+
+      <label class="avatarPick">
+
+        <input
+          type="radio"
+          name="newAvatar"
+          value="👧🏻"
+        >
+
+        <span>
+          👧🏻
+        </span>
+
+      </label>
+
+
+      <label class="avatarPick">
+
+        <input
+          type="radio"
+          name="newAvatar"
+          value="🌱"
+        >
+
+        <span>
+          🌱
+        </span>
+
+      </label>
+
+
+      <label class="avatarPick">
+
+        <input
+          type="radio"
+          name="newAvatar"
+          value="⭐"
+        >
+
+        <span>
+          ⭐
+        </span>
+
+      </label>
+
+    </div>
+
+
+    <div style="height:12px"></div>
+
+
+    <div class="label">
+      カラー
+    </div>
+
+    <div class="colorChoices">
+
+      <label class="colorPick">
+
+        <input
+          type="radio"
+          name="newColor"
+          value="#cfeaf9"
+          checked
+        >
+
+        <span
+          class="colorSwatch"
+          style="background:#cfeaf9"
+        ></span>
+
+      </label>
+
+
+      <label class="colorPick">
+
+        <input
+          type="radio"
+          name="newColor"
+          value="#f8d5da"
+        >
+
+        <span
+          class="colorSwatch"
+          style="background:#f8d5da"
+        ></span>
+
+      </label>
+
+
+      <label class="colorPick">
+
+        <input
+          type="radio"
+          name="newColor"
+          value="#d4efdf"
+        >
+
+        <span
+          class="colorSwatch"
+          style="background:#d4efdf"
+        ></span>
+
+      </label>
+
+
+      <label class="colorPick">
+
+        <input
+          type="radio"
+          name="newColor"
+          value="#ddd3f3"
+        >
+
+        <span
+          class="colorSwatch"
+          style="background:#ddd3f3"
+        ></span>
+
+      </label>
+
+
+      <label class="colorPick">
+
+        <input
+          type="radio"
+          name="newColor"
+          value="#f8dfc7"
+        >
+
+        <span
+          class="colorSwatch"
+          style="background:#f8dfc7"
+        ></span>
+
+      </label>
+
+    </div>
+
+
+    <div class="rowBtns">
+
+      <button
+        class="btn soft"
+        onclick="closeChildModal()"
+      >
+        閉じる
+      </button>
+
+
+      <button
+        class="btn primary"
+        onclick="addChild()"
+      >
+        追加する
+      </button>
+
+    </div>
+
+  </div>
+
+</div>
+
+
 <script>
 
-const $ = id =>
-  document.getElementById(id);
-
-const radio = name =>
-  document.querySelector(
-    `input[name="${name}"]:checked`
-  )?.value || "";
+const $ =
+  id =>
+    document.getElementById(id);
 
 
-const KEYS = {
+const radio =
+  name =>
+    document.querySelector(
+      `input[name="${name}"]:checked`
+    )?.value || "";
 
-  draft:
-    "oyako-unified-draft",
 
-  history:
-    "oyako-unified-history",
+const APP =
+  "oyako-v5";
 
-  shareLegacy:
-    "oyako-share-extra",
 
-  shareSchool:
-    "oyako-share-school-v4",
+const CHILDREN_KEY =
+  `${APP}:children`;
 
-  shareDay:
-    "oyako-share-day-v4",
 
-  consult:
-    "oyako-consult-extra"
-
-};
+const CURRENT_KEY =
+  `${APP}:currentChild`;
 
 
 function today(){
@@ -1467,12 +2427,158 @@ function today(){
   const local =
     new Date(
       d.getTime() -
-      d.getTimezoneOffset() * 60000
+      d.getTimezoneOffset() *
+      60000
     );
 
   return local
     .toISOString()
     .slice(0,10);
+
+}
+
+
+function uid(){
+
+  return "c" +
+    Date.now()
+      .toString(36) +
+    Math.random()
+      .toString(36)
+      .slice(2,6);
+
+}
+
+
+function getChildren(){
+
+  try{
+
+    const arr =
+      JSON.parse(
+        localStorage
+          .getItem(
+            CHILDREN_KEY
+          ) ||
+        "[]"
+      );
+
+    if(
+      Array.isArray(arr) &&
+      arr.length
+    ){
+
+      return arr;
+
+    }
+
+  }catch(e){}
+
+
+  const initial = [
+
+    {
+      id:"child1",
+      name:"お子さん",
+      avatar:"🧒🏻",
+      color:"#cfeaf9"
+    }
+
+  ];
+
+
+  localStorage.setItem(
+    CHILDREN_KEY,
+    JSON.stringify(
+      initial
+    )
+  );
+
+
+  return initial;
+
+}
+
+
+function saveChildren(
+  list
+){
+
+  localStorage.setItem(
+    CHILDREN_KEY,
+    JSON.stringify(
+      list
+    )
+  );
+
+}
+
+
+function getCurrentChildId(){
+
+  const list =
+    getChildren();
+
+  const saved =
+    localStorage.getItem(
+      CURRENT_KEY
+    );
+
+
+  if(
+    saved &&
+    list.some(
+      x =>
+        x.id === saved
+    )
+  ){
+
+    return saved;
+
+  }
+
+
+  localStorage.setItem(
+    CURRENT_KEY,
+    list[0].id
+  );
+
+
+  return list[0].id;
+
+}
+
+
+function getCurrentChild(){
+
+  const id =
+    getCurrentChildId();
+
+
+  return getChildren()
+    .find(
+      x =>
+        x.id === id
+    ) ||
+    getChildren()[0];
+
+}
+
+
+function key(
+  type,
+  extra=""
+){
+
+  const c =
+    getCurrentChildId();
+
+
+  return `${APP}:${c}:${type}${
+    extra
+      ? ":" + extra
+      : ""
+  }`;
 
 }
 
@@ -1484,16 +2590,20 @@ function showToast(
   const t =
     $("toast");
 
+
   t.textContent =
     "✓ " + text;
+
 
   t.classList.add(
     "show"
   );
 
+
   clearTimeout(
     showToast.timer
   );
+
 
   showToast.timer =
     setTimeout(
@@ -1501,8 +2611,272 @@ function showToast(
         t.classList.remove(
           "show"
         ),
-      2200
+      2100
     );
+
+}
+
+
+function renderChildren(){
+
+  const list =
+    getChildren();
+
+
+  const current =
+    getCurrentChildId();
+
+
+  $("childChips")
+    .innerHTML =
+
+    list.map(
+      c => `
+
+        <button
+          class="childChip ${
+            c.id === current
+              ? "active"
+              : ""
+          }"
+          onclick="switchChild('${c.id}')"
+        >
+
+          <span
+            class="avatarDot"
+            style="background:${c.color}"
+          >
+            ${c.avatar}
+          </span>
+
+          ${escapeHtml(c.name)}
+
+        </button>
+
+      `
+    ).join("") +
+
+    `
+
+      <button
+        class="childChip add"
+        onclick="openChildModal()"
+      >
+        ＋ 追加
+      </button>
+
+    `;
+
+
+  const c =
+    getCurrentChild();
+
+
+  $("currentChildLabel")
+    .textContent =
+    `現在：${c.name}`;
+
+
+  $("heroChildName")
+    .textContent =
+    c.name;
+
+
+  $("heroFace")
+    .textContent =
+    c.avatar;
+
+
+  $("heroFace")
+    .style
+    .background =
+    c.color;
+
+
+  $("homeChar1")
+    .textContent =
+    c.avatar;
+
+
+  $("homeChar1")
+    .style
+    .background =
+    c.color;
+
+
+  $("homeChar4")
+    .textContent =
+    c.avatar;
+
+
+  $("homeChar4")
+    .style
+    .background =
+    c.color;
+
+
+  $("recordChildLabel")
+    .textContent =
+    `${c.name}の今日の記録`;
+
+
+  $("shareChildLabel")
+    .textContent =
+    `${c.name}の学校・デイ用メモ`;
+
+
+  $("consultChildLabel")
+    .textContent =
+    `${c.name}の記録からまとめます`;
+
+
+  $("historyChildLabel")
+    .textContent =
+    `${c.name}の保存済み記録`;
+
+}
+
+
+function switchChild(
+  id
+){
+
+  saveDraft();
+
+  saveConsultDraft();
+
+
+  localStorage.setItem(
+    CURRENT_KEY,
+    id
+  );
+
+
+  renderChildren();
+
+  restoreRecord();
+
+  loadShareMemo(
+    radio("target") ||
+    "学校"
+  );
+
+  restoreConsult();
+
+  renderHistory();
+
+  buildConsult();
+
+
+  showToast(
+    `${getCurrentChild().name}に切り替えました`
+  );
+
+}
+
+
+function openChildModal(){
+
+  $("newChildName")
+    .value = "";
+
+
+  $("childModal")
+    .classList
+    .add("show");
+
+}
+
+
+function closeChildModal(){
+
+  $("childModal")
+    .classList
+    .remove("show");
+
+}
+
+
+function addChild(){
+
+  const name =
+    $("newChildName")
+      .value
+      .trim();
+
+
+  if(!name){
+
+    showToast(
+      "名前を入力してください"
+    );
+
+    return;
+
+  }
+
+
+  const avatar =
+    radio("newAvatar") ||
+    "🧒🏻";
+
+
+  const color =
+    radio("newColor") ||
+    "#cfeaf9";
+
+
+  const list =
+    getChildren();
+
+
+  const child = {
+
+    id:uid(),
+
+    name,
+
+    avatar,
+
+    color
+
+  };
+
+
+  list.push(
+    child
+  );
+
+
+  saveChildren(
+    list
+  );
+
+
+  localStorage.setItem(
+    CURRENT_KEY,
+    child.id
+  );
+
+
+  closeChildModal();
+
+  renderChildren();
+
+  clearRecordForm();
+
+  loadShareMemo(
+    "学校"
+  );
+
+  restoreConsult();
+
+  renderHistory();
+
+
+  showToast(
+    `${name}を追加しました`
+  );
 
 }
 
@@ -1517,12 +2891,26 @@ function setRadio(
       `input[name="${name}"]`
     )
     .forEach(
-      x => {
-
+      x =>
         x.checked =
-          x.value === value;
+        x.value === value
+    );
 
-      }
+}
+
+
+function clearRadio(
+  name
+){
+
+  document
+    .querySelectorAll(
+      `input[name="${name}"]`
+    )
+    .forEach(
+      x =>
+        x.checked =
+        false
     );
 
 }
@@ -1533,17 +2921,20 @@ function getRecord(){
   return {
 
     date:
-      $("date").value ||
+      $("date")
+        .value ||
       today(),
 
     sleep:
       radio("sleep"),
 
     sleepStart:
-      $("sleepStart").value,
+      $("sleepStart")
+        .value,
 
     sleepEnd:
-      $("sleepEnd").value,
+      $("sleepEnd")
+        .value,
 
     meal:
       radio("meal"),
@@ -1586,10 +2977,45 @@ function getRecord(){
 }
 
 
+function clearRecordForm(){
+
+  $("date")
+    .value =
+    today();
+
+
+  [
+    "sleep",
+    "meal",
+    "mood"
+  ]
+  .forEach(
+    clearRadio
+  );
+
+
+  [
+    "sleepStart",
+    "sleepEnd",
+    "mealNote",
+    "moodNote",
+    "school",
+    "good",
+    "concern",
+    "other"
+  ]
+  .forEach(
+    k =>
+      $(k).value = ""
+  );
+
+}
+
+
 function saveDraft(){
 
   localStorage.setItem(
-    KEYS.draft,
+    key("draft"),
     JSON.stringify(
       getRecord()
     )
@@ -1598,19 +3024,96 @@ function saveDraft(){
 }
 
 
+function restoreRecord(){
+
+  clearRecordForm();
+
+
+  try{
+
+    const x =
+      JSON.parse(
+        localStorage.getItem(
+          key("draft")
+        ) ||
+        "null"
+      );
+
+
+    if(!x){
+
+      return;
+
+    }
+
+
+    $("date")
+      .value =
+      x.date ||
+      today();
+
+
+    [
+      "sleep",
+      "meal",
+      "mood"
+    ]
+    .forEach(
+      k => {
+
+        if(x[k]){
+
+          setRadio(
+            k,
+            x[k]
+          );
+
+        }
+
+      }
+    );
+
+
+    [
+      "sleepStart",
+      "sleepEnd",
+      "mealNote",
+      "moodNote",
+      "school",
+      "good",
+      "concern",
+      "other"
+    ]
+    .forEach(
+      k => {
+
+        $(k).value =
+          x[k] ||
+          "";
+
+      }
+    );
+
+  }catch(e){}
+
+}
+
+
 function getHistory(){
 
   try{
 
-    const data =
+    const x =
       JSON.parse(
         localStorage.getItem(
-          KEYS.history
-        ) || "[]"
+          key("history")
+        ) ||
+        "[]"
       );
 
-    return Array.isArray(data)
-      ? data
+
+    return Array.isArray(x)
+      ? x
       : [];
 
   }catch(e){
@@ -1627,6 +3130,7 @@ function saveRecord(){
   const x =
     getRecord();
 
+
   let hist =
     getHistory()
       .filter(
@@ -1635,50 +3139,69 @@ function saveRecord(){
           x.date
       );
 
-  hist.unshift(x);
+
+  hist.unshift(
+    x
+  );
+
 
   hist =
-    hist.slice(0,14);
+    hist.slice(
+      0,
+      60
+    );
+
 
   localStorage.setItem(
-    KEYS.history,
-    JSON.stringify(hist)
+    key("history"),
+    JSON.stringify(
+      hist
+    )
   );
 
+
   localStorage.setItem(
-    KEYS.draft,
-    JSON.stringify(x)
+    key("draft"),
+    JSON.stringify(
+      x
+    )
   );
+
 
   $("recordSaved")
     .textContent =
     "✓ 保存しました";
 
+
   setTimeout(
     () =>
       $("recordSaved")
-        .textContent = "",
-    2200
+        .textContent =
+        "",
+    2100
   );
 
+
   showToast(
-    "今日の記録を保存しました"
+    `${getCurrentChild().name}の記録を保存しました`
   );
+
 
   renderHistory();
 
 }
 
 
-/* 学校・デイ別保存 */
-
 function shareKey(
   target
 ){
 
-  return target === "デイ"
-    ? KEYS.shareDay
-    : KEYS.shareSchool;
+  return key(
+    "share",
+    target === "デイ"
+      ? "day"
+      : "school"
+  );
 
 }
 
@@ -1689,14 +3212,12 @@ function getShareMemo(
 
   try{
 
-    const x =
-      JSON.parse(
-        localStorage.getItem(
-          shareKey(target)
-        ) || "null"
-      );
-
-    return x || null;
+    return JSON.parse(
+      localStorage.getItem(
+        shareKey(target)
+      ) ||
+      "null"
+    );
 
   }catch(e){
 
@@ -1707,13 +3228,95 @@ function getShareMemo(
 }
 
 
-function currentShareForm(){
+function loadShareMemo(
+  target
+){
 
-  return {
+  const s =
+    getShareMemo(
+      target
+    );
 
-    target:
-      radio("target") ||
-      "学校",
+
+  $("homeResponse")
+    .value =
+    s?.homeResponse ||
+    "";
+
+
+  $("question")
+    .value =
+    s?.question ||
+    "";
+
+
+  $("shortMode")
+    .checked =
+    s
+      ? s.shortMode !== false
+      : true;
+
+
+  $("noReply")
+    .checked =
+    !!s?.noReply;
+
+
+  $("summary")
+    .style
+    .display =
+    "none";
+
+
+  $("summary")
+    .textContent =
+    "";
+
+
+  $("shareSaved")
+    .textContent =
+    "";
+
+
+  const info =
+    $("shareSavedInfo");
+
+
+  if(s){
+
+    info.textContent =
+      `${target}用の保存内容を呼び出しました。まだ外部には共有されていません。`;
+
+
+    info.classList.add(
+      "show"
+    );
+
+  }else{
+
+    info.textContent =
+      "";
+
+
+    info.classList.remove(
+      "show"
+    );
+
+  }
+
+}
+
+
+function saveShareMemo(){
+
+  const target =
+    radio("target") ||
+    "学校";
+
+
+  const s = {
+
+    target,
 
     homeResponse:
       $("homeResponse")
@@ -1739,115 +3342,25 @@ function currentShareForm(){
 
   };
 
-}
-
-
-function loadShareMemo(
-  target
-){
-
-  const s =
-    getShareMemo(target);
-
-  $("homeResponse").value =
-    s?.homeResponse || "";
-
-  $("question").value =
-    s?.question || "";
-
-  $("shortMode").checked =
-    s
-      ? s.shortMode !== false
-      : true;
-
-  $("noReply").checked =
-    !!s?.noReply;
-
-  $("summary")
-    .style
-    .display =
-    "none";
-
-  $("summary")
-    .textContent = "";
-
-  $("shareSaved")
-    .textContent = "";
-
-  const state =
-    $("shareState");
-
-  const text =
-    $("shareStateText");
-
-  const info =
-    $("shareSavedInfo");
-
-  if(s){
-
-    state
-      .classList
-      .add("saved");
-
-    text.textContent =
-      `${target}用の保存内容を呼び出しました`;
-
-    info.textContent =
-      `${target}用メモは保存済みです。必要な時に「共有文を作る」を押してください。`;
-
-    info
-      .classList
-      .add("show");
-
-  }else{
-
-    state
-      .classList
-      .remove("saved");
-
-    text.textContent =
-      `${target}用の保存内容はまだありません`;
-
-    info
-      .classList
-      .remove("show");
-
-    info.textContent =
-      "";
-
-  }
-
-}
-
-
-function saveShareMemo(){
-
-  const s =
-    currentShareForm();
 
   localStorage.setItem(
-    shareKey(s.target),
+    shareKey(target),
     JSON.stringify(s)
   );
 
+
   $("shareSavedInfo")
     .textContent =
-    `${s.target}用の入力内容を保存しました。まだ共有はされていません。`;
+    `${target}用メモを保存しました。共有はまだ行われていません。`;
+
 
   $("shareSavedInfo")
     .classList
     .add("show");
 
-  $("shareState")
-    .classList
-    .add("saved");
-
-  $("shareStateText")
-    .textContent =
-    `${s.target}用の保存内容を表示中`;
 
   showToast(
-    `${s.target}用メモを保存しました`
+    `${target}用メモを保存しました`
   );
 
 }
@@ -1858,6 +3371,7 @@ function latestRecord(){
   const hist =
     getHistory();
 
+
   return hist[0] ||
     getRecord();
 
@@ -1866,15 +3380,24 @@ function latestRecord(){
 
 function makeMessage(){
 
+  const child =
+    getCurrentChild();
+
+
   const x =
     latestRecord();
+
 
   const target =
     radio("target") ||
     "学校";
 
+
   const saved =
-    getShareMemo(target);
+    getShareMemo(
+      target
+    );
+
 
   if(!saved){
 
@@ -1883,38 +3406,25 @@ function makeMessage(){
       .display =
       "block";
 
+
     $("summary")
       .textContent =
       `${target}用のメモがまだ保存されていません。\n先に「入力内容を保存」を押してください。`;
 
-    $("shareSaved")
-      .textContent =
-      "先に保存してください";
 
     return;
 
   }
 
 
-  const short =
-    saved.shortMode !== false;
-
-  const home =
-    (
-      saved.homeResponse ||
-      ""
-    ).trim();
-
-  const q =
-    (
-      saved.question ||
-      ""
-    ).trim();
-
-
-  let lines = [
-    `【${x.date} ${target}共有】`
+  const lines = [
+    `【${x.date} ${child.name}｜${target}共有】`
   ];
+
+
+  const short =
+    saved.shortMode !==
+    false;
 
 
   if(short){
@@ -1923,7 +3433,10 @@ function makeMessage(){
 
       lines.push(
         `睡眠：${x.sleep}${
-          (x.sleepStart || x.sleepEnd)
+          (
+            x.sleepStart ||
+            x.sleepEnd
+          )
           ? `（${x.sleepStart || "?"}〜${x.sleepEnd || "?"}）`
           : ""
         }`
@@ -1982,19 +3495,23 @@ function makeMessage(){
     }
 
 
-    if(home){
+    if(
+      saved.homeResponse
+    ){
 
       lines.push(
-        `家での様子・対応：${home}`
+        `家での様子・対応：${saved.homeResponse}`
       );
 
     }
 
 
-    if(q){
+    if(
+      saved.question
+    ){
 
       lines.push(
-        `確認したいこと：${q}`
+        `確認したいこと：${saved.question}`
       );
 
     }
@@ -2020,7 +3537,7 @@ function makeMessage(){
           x.mealNote
           ? `。${x.mealNote}`
           : ""
-        }`
+        }。`
       );
 
     }
@@ -2036,7 +3553,7 @@ function makeMessage(){
           x.moodNote
           ? `。${x.moodNote}`
           : ""
-        }`
+        }。`
       );
 
     }
@@ -2060,19 +3577,23 @@ function makeMessage(){
     }
 
 
-    if(home){
+    if(
+      saved.homeResponse
+    ){
 
       lines.push(
-        `家では、${home}`
+        `家では、${saved.homeResponse}`
       );
 
     }
 
 
-    if(q){
+    if(
+      saved.question
+    ){
 
       lines.push(
-        `もし分かれば、${q}`
+        `もし分かれば、${saved.question}`
       );
 
     }
@@ -2089,7 +3610,9 @@ function makeMessage(){
   }
 
 
-  if(lines.length === 1){
+  if(
+    lines.length === 1
+  ){
 
     lines.push(
       "共有する記録がまだありません。"
@@ -2102,10 +3625,12 @@ function makeMessage(){
     .textContent =
     lines.join("\n");
 
+
   $("summary")
     .style
     .display =
     "block";
+
 
   $("shareSaved")
     .textContent =
@@ -2124,11 +3649,15 @@ async function copyText(
 
   }
 
+
   try{
 
     await navigator
       .clipboard
-      .writeText(text);
+      .writeText(
+        text
+      );
+
 
     return true;
 
@@ -2142,20 +3671,28 @@ async function copyText(
             "textarea"
           );
 
+
       ta.value =
         text;
+
 
       ta.style.position =
         "fixed";
 
+
       ta.style.opacity =
         "0";
 
+
       document
         .body
-        .appendChild(ta);
+        .appendChild(
+          ta
+        );
+
 
       ta.select();
+
 
       const ok =
         document
@@ -2163,7 +3700,9 @@ async function copyText(
             "copy"
           );
 
+
       ta.remove();
+
 
       return ok;
 
@@ -2185,24 +3724,31 @@ async function copyMessage(){
       .textContent
       .trim();
 
+
   if(!text){
 
     $("shareSaved")
       .textContent =
       "先に共有文を作ってください";
 
+
     return;
 
   }
 
+
   const ok =
-    await copyText(text);
+    await copyText(
+      text
+    );
+
 
   $("shareSaved")
     .textContent =
     ok
       ? "コピーしました"
       : "コピーできませんでした";
+
 
   if(ok){
 
@@ -2215,12 +3761,10 @@ async function copyMessage(){
 }
 
 
-/* 通院・相談 */
-
 function saveConsultDraft(){
 
   localStorage.setItem(
-    KEYS.consult,
+    key("consult"),
     JSON.stringify({
 
       consultQuestion:
@@ -2237,48 +3781,98 @@ function saveConsultDraft(){
 }
 
 
+function restoreConsult(){
+
+  $("consultQuestion")
+    .value =
+    "";
+
+
+  $("consultExtra")
+    .value =
+    "";
+
+
+  try{
+
+    const c =
+      JSON.parse(
+        localStorage.getItem(
+          key("consult")
+        ) ||
+        "null"
+      );
+
+
+    if(c){
+
+      $("consultQuestion")
+        .value =
+        c.consultQuestion ||
+        "";
+
+
+      $("consultExtra")
+        .value =
+        c.consultExtra ||
+        "";
+
+    }
+
+  }catch(e){}
+
+}
+
+
 function filteredHistory(){
 
   const hist =
     getHistory();
 
+
   const p =
     radio("period") ||
     "7";
 
-  if(p === "all"){
+
+  if(
+    p === "all"
+  ){
 
     return hist;
 
   }
 
+
   const days =
     Number(p);
+
 
   const limit =
     new Date();
 
+
   limit.setHours(
-    0,0,0,0
+    0,
+    0,
+    0,
+    0
   );
+
 
   limit.setDate(
     limit.getDate() -
     (days - 1)
   );
 
+
   return hist.filter(
-    r => {
-
-      const d =
-        new Date(
-          r.date +
-          "T00:00:00"
-        );
-
-      return d >= limit;
-
-    }
+    r =>
+      new Date(
+        r.date +
+        "T00:00:00"
+      ) >=
+      limit
   );
 
 }
@@ -2289,12 +3883,14 @@ function buildConsult(){
   const list =
     filteredHistory();
 
+
   const concernCount =
     list.filter(
       r =>
         r.concern ||
         r.other
     ).length;
+
 
   const sleepCount =
     list.filter(
@@ -2303,6 +3899,7 @@ function buildConsult(){
         r.sleep !==
         "いつも通り"
     ).length;
+
 
   const mealCount =
     list.filter(
@@ -2320,6 +3917,7 @@ function buildConsult(){
     .innerHTML = `
 
       <div class="stat">
+
         <div class="n">
           ${list.length}
         </div>
@@ -2327,10 +3925,12 @@ function buildConsult(){
         <div class="s">
           記録日数
         </div>
+
       </div>
 
 
       <div class="stat">
+
         <div class="n">
           ${concernCount}
         </div>
@@ -2338,10 +3938,12 @@ function buildConsult(){
         <div class="s">
           気になる記録
         </div>
+
       </div>
 
 
       <div class="stat">
+
         <div class="n">
           ${sleepCount}
         </div>
@@ -2349,10 +3951,12 @@ function buildConsult(){
         <div class="s">
           睡眠の変化
         </div>
+
       </div>
 
 
       <div class="stat">
+
         <div class="n">
           ${mealCount}
         </div>
@@ -2360,16 +3964,20 @@ function buildConsult(){
         <div class="s">
           食事の変化
         </div>
+
       </div>
 
     `;
 
 
-  if(!list.length){
+  if(
+    !list.length
+  ){
 
     $("recentNotes")
       .textContent =
       "該当する記録はありません。";
+
 
     return;
 
@@ -2464,13 +4072,20 @@ function makeConsultSummary(){
 
   buildConsult();
 
+
+  const child =
+    getCurrentChild();
+
+
   const list =
     filteredHistory();
+
 
   const q =
     $("consultQuestion")
       .value
       .trim();
+
 
   const extra =
     $("consultExtra")
@@ -2478,7 +4093,7 @@ function makeConsultSummary(){
       .trim();
 
 
-  const sleepChanges =
+  const sleep =
     list
       .filter(
         r =>
@@ -2492,7 +4107,7 @@ function makeConsultSummary(){
       );
 
 
-  const mealChanges =
+  const meal =
     list
       .filter(
         r =>
@@ -2507,8 +4122,8 @@ function makeConsultSummary(){
         r =>
           `${r.date}:${r.meal || ""}${
             r.mealNote
-            ? `（${r.mealNote}）`
-            : ""
+              ? `（${r.mealNote}）`
+              : ""
           }`
       );
 
@@ -2526,32 +4141,31 @@ function makeConsultSummary(){
 
 
   const lines = [
-    "【通院・相談用まとめ】"
+
+    `【${child.name}｜通院・相談用まとめ】`,
+
+    `記録日数：${list.length}日`
+
   ];
 
 
-  lines.push(
-    `記録日数：${list.length}日`
-  );
-
-
   if(
-    sleepChanges.length
+    sleep.length
   ){
 
     lines.push(
-      `睡眠の変化：${sleepChanges.join("／")}`
+      `睡眠の変化：${sleep.join("／")}`
     );
 
   }
 
 
   if(
-    mealChanges.length
+    meal.length
   ){
 
     lines.push(
-      `食事の変化：${mealChanges.join("／")}`
+      `食事の変化：${meal.join("／")}`
     );
 
   }
@@ -2590,14 +4204,17 @@ function makeConsultSummary(){
     .textContent =
     lines.join("\n");
 
+
   $("consultSummary")
     .style
     .display =
     "block";
 
+
   $("consultSaved")
     .textContent =
     "相談用まとめを作りました";
+
 
   saveConsultDraft();
 
@@ -2611,24 +4228,31 @@ async function copyConsult(){
       .textContent
       .trim();
 
+
   if(!text){
 
     $("consultSaved")
       .textContent =
       "先に相談用まとめを作ってください";
 
+
     return;
 
   }
 
+
   const ok =
-    await copyText(text);
+    await copyText(
+      text
+    );
+
 
   $("consultSaved")
     .textContent =
     ok
       ? "コピーしました"
       : "コピーできませんでした";
+
 
   if(ok){
 
@@ -2640,8 +4264,6 @@ async function copyConsult(){
 
 }
 
-
-/* 履歴 */
 
 function recordMini(
   r
@@ -2703,6 +4325,226 @@ function recordMini(
 }
 
 
+function renderHistory(){
+
+  const hist =
+    getHistory();
+
+
+  if(
+    !hist.length
+  ){
+
+    $("history")
+      .innerHTML = `
+
+        <div class="empty">
+          まだ記録はありません。
+        </div>
+
+      `;
+
+
+    return;
+
+  }
+
+
+  $("history")
+    .innerHTML =
+    hist.map(
+      r => `
+
+        <div class="historyItem">
+
+          <div class="historyTop">
+
+            <div class="historyDate">
+              ${escapeHtml(r.date || "")}
+            </div>
+
+            <button
+              class="smallBtn"
+              onclick="editRecord('${escapeHtml(r.date || "")}')"
+            >
+              見る・修正
+            </button>
+
+          </div>
+
+          <div class="historyMini">
+            ${escapeHtml(recordMini(r))}
+          </div>
+
+        </div>
+
+      `
+    ).join("");
+
+}
+
+
+function editRecord(
+  date
+){
+
+  const r =
+    getHistory()
+      .find(
+        x =>
+          x.date ===
+          date
+      );
+
+
+  if(!r){
+
+    return;
+
+  }
+
+
+  localStorage.setItem(
+    key("draft"),
+    JSON.stringify(r)
+  );
+
+
+  restoreRecord();
+
+
+  showView(
+    "record"
+  );
+
+
+  showToast(
+    `${date}の記録を開きました`
+  );
+
+}
+
+
+function clearHistory(){
+
+  const child =
+    getCurrentChild();
+
+
+  if(
+    !confirm(
+      `${child.name}の保存した履歴をすべて削除しますか？`
+    )
+  ){
+
+    return;
+
+  }
+
+
+  localStorage.removeItem(
+    key("history")
+  );
+
+
+  renderHistory();
+
+
+  showToast(
+    `${child.name}の履歴を削除しました`
+  );
+
+}
+
+
+function showView(
+  name
+){
+
+  document
+    .querySelectorAll(
+      ".view"
+    )
+    .forEach(
+      v =>
+        v.classList
+          .remove(
+            "active"
+          )
+    );
+
+
+  $(`view-${name}`)
+    .classList
+    .add(
+      "active"
+    );
+
+
+  document
+    .querySelectorAll(
+      ".bottomNav button"
+    )
+    .forEach(
+      b =>
+        b.classList
+          .remove(
+            "active"
+          )
+    );
+
+
+  $(`nav-${name}`)
+    .classList
+    .add(
+      "active"
+    );
+
+
+  if(
+    name ===
+    "history"
+  ){
+
+    renderHistory();
+
+  }
+
+
+  if(
+    name ===
+    "share"
+  ){
+
+    loadShareMemo(
+      radio("target") ||
+      "学校"
+    );
+
+  }
+
+
+  if(
+    name ===
+    "consult"
+  ){
+
+    buildConsult();
+
+  }
+
+
+  window.scrollTo({
+
+    top:0,
+
+    behavior:"smooth"
+
+  });
+
+}
+
+
 function escapeHtml(
   s
 ){
@@ -2733,338 +4575,6 @@ function escapeHtml(
 
 }
 
-
-function renderHistory(){
-
-  const hist =
-    getHistory();
-
-
-  if(!hist.length){
-
-    $("history")
-      .innerHTML =
-      `<div class="empty">
-        まだ記録はありません。
-      </div>`;
-
-    return;
-
-  }
-
-
-  $("history")
-    .innerHTML =
-    hist.map(
-      r => `
-
-        <div class="historyItem">
-
-          <div class="historyDate">
-            ${escapeHtml(r.date || "")}
-          </div>
-
-          <div class="historyMini">
-            ${escapeHtml(recordMini(r))}
-          </div>
-
-        </div>
-
-      `
-    ).join("");
-
-}
-
-
-function clearHistory(){
-
-  if(
-    !confirm(
-      "保存した履歴をすべて削除しますか？"
-    )
-  ){
-
-    return;
-
-  }
-
-  localStorage.removeItem(
-    KEYS.history
-  );
-
-  renderHistory();
-
-  showToast(
-    "履歴を削除しました"
-  );
-
-}
-
-
-/* 復元 */
-
-function restoreRecord(){
-
-  $("date").value =
-    today();
-
-
-  try{
-
-    const x =
-      JSON.parse(
-        localStorage.getItem(
-          KEYS.draft
-        ) || "null"
-      );
-
-
-    if(!x){
-
-      return;
-
-    }
-
-
-    $("date").value =
-      x.date ||
-      today();
-
-
-    [
-      "sleep",
-      "meal",
-      "mood"
-    ]
-    .forEach(
-      k => {
-
-        if(x[k]){
-
-          setRadio(
-            k,
-            x[k]
-          );
-
-        }
-
-      }
-    );
-
-
-    [
-      "sleepStart",
-      "sleepEnd",
-      "mealNote",
-      "moodNote",
-      "school",
-      "good",
-      "concern",
-      "other"
-    ]
-    .forEach(
-      k => {
-
-        if($(k)){
-
-          $(k).value =
-            x[k] || "";
-
-        }
-
-      }
-    );
-
-  }catch(e){}
-
-}
-
-
-/* Ver.3に共有メモが残っていれば
-   最初の一度だけVer.4へ引き継ぐ */
-
-function migrateLegacyShareOnce(){
-
-  const hasV4 =
-    localStorage.getItem(
-      KEYS.shareSchool
-    ) ||
-    localStorage.getItem(
-      KEYS.shareDay
-    );
-
-
-  if(hasV4){
-
-    return;
-
-  }
-
-
-  try{
-
-    const old =
-      JSON.parse(
-        localStorage.getItem(
-          KEYS.shareLegacy
-        ) || "null"
-      );
-
-
-    if(!old){
-
-      return;
-
-    }
-
-
-    const target =
-      old.target === "デイ"
-      ? "デイ"
-      : "学校";
-
-
-    const migrated = {
-
-      target,
-
-      homeResponse:
-        old.homeResponse ||
-        "",
-
-      question:
-        old.question ||
-        "",
-
-      shortMode:
-        old.shortMode !== false,
-
-      noReply:
-        !!old.noReply,
-
-      savedAt:
-        new Date()
-          .toISOString()
-
-    };
-
-
-    localStorage.setItem(
-      shareKey(target),
-      JSON.stringify(
-        migrated
-      )
-    );
-
-  }catch(e){}
-
-}
-
-
-function restoreConsult(){
-
-  try{
-
-    const c =
-      JSON.parse(
-        localStorage.getItem(
-          KEYS.consult
-        ) || "null"
-      );
-
-
-    if(c){
-
-      $("consultQuestion")
-        .value =
-        c.consultQuestion ||
-        "";
-
-      $("consultExtra")
-        .value =
-        c.consultExtra ||
-        "";
-
-    }
-
-  }catch(e){}
-
-}
-
-
-/* 画面切り替え */
-
-function showView(
-  name
-){
-
-  document
-    .querySelectorAll(
-      ".view"
-    )
-    .forEach(
-      v =>
-        v.classList.remove(
-          "active"
-        )
-    );
-
-
-  $(`view-${name}`)
-    .classList
-    .add("active");
-
-
-  document
-    .querySelectorAll(
-      ".bottomNav button"
-    )
-    .forEach(
-      b =>
-        b.classList.remove(
-          "active"
-        )
-    );
-
-
-  $(`nav-${name}`)
-    .classList
-    .add("active");
-
-
-  if(
-    name === "history"
-  ){
-
-    renderHistory();
-
-  }
-
-
-  if(
-    name === "share"
-  ){
-
-    const target =
-      radio("target") ||
-      "学校";
-
-    loadShareMemo(
-      target
-    );
-
-  }
-
-
-  window.scrollTo({
-    top:0,
-    behavior:"smooth"
-  });
-
-}
-
-
-/* 入力途中の今日の記録を保存 */
 
 document.addEventListener(
   "input",
@@ -3130,11 +4640,92 @@ document.addEventListener(
 );
 
 
-/* 起動 */
+/*
+  旧Ver.4の記録がある場合、
+  最初の子どもへ一度だけ引き継ぐ
+*/
+
+(function migrateV4(){
+
+  const done =
+    localStorage.getItem(
+      `${APP}:migrated-v4`
+    );
+
+
+  if(done){
+
+    return;
+
+  }
+
+
+  const first =
+    getChildren()[0];
+
+
+  try{
+
+    const oldHist =
+      JSON.parse(
+        localStorage.getItem(
+          "oyako-unified-history"
+        ) ||
+        "[]"
+      );
+
+
+    const oldDraft =
+      JSON.parse(
+        localStorage.getItem(
+          "oyako-unified-draft"
+        ) ||
+        "null"
+      );
+
+
+    if(
+      Array.isArray(
+        oldHist
+      ) &&
+      oldHist.length
+    ){
+
+      localStorage.setItem(
+        `${APP}:${first.id}:history`,
+        JSON.stringify(
+          oldHist
+        )
+      );
+
+    }
+
+
+    if(oldDraft){
+
+      localStorage.setItem(
+        `${APP}:${first.id}:draft`,
+        JSON.stringify(
+          oldDraft
+        )
+      );
+
+    }
+
+  }catch(e){}
+
+
+  localStorage.setItem(
+    `${APP}:migrated-v4`,
+    "1"
+  );
+
+})();
+
+
+renderChildren();
 
 restoreRecord();
-
-migrateLegacyShareOnce();
 
 restoreConsult();
 
@@ -3143,6 +4734,8 @@ loadShareMemo(
 );
 
 renderHistory();
+
+buildConsult();
 
 </script>
 
